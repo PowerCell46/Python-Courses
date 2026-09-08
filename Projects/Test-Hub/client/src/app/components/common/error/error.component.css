@@ -1,0 +1,32 @@
+::ng-deep html {
+    background: url('../../../../assets/images/Computer-screen-code-glitch-animation-gif-background-free.gif') no-repeat center center / cover !important;
+}
+
+
+h1 {
+    padding-top: 27.5vh;
+    padding-bottom: 40vh;
+    font-family: 'Anta';
+    font-size: 6rem;
+    color: whitesmoke;
+    text-shadow: var(--text-shadow);
+    text-align: center;
+    line-height: 1.35;
+    animation: flicker 2s infinite;
+}
+
+
+@keyframes flicker {
+    0% {
+      color: white;
+      text-shadow: 0 0 10px white;
+    }
+    50% {
+      color: #800020;
+      text-shadow: 0 0 10px #800020;
+    }
+    100% {
+      color: white;
+      text-shadow: 0 0 10px white;
+    }
+  }

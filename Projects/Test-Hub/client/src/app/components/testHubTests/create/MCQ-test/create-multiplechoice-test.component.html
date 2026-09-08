@@ -1,0 +1,158 @@
+<form
+  [formGroup]="multipleQuestionsTestForm"
+  (ngSubmit)="onMultipleQuestionsSubmit()"
+>
+  <section id="choose-course-choose-topic">
+    <!-- Test Title -->
+    <div class="title-wrapper">
+      <label id="task-title-label" for="task-title">Test Title:</label>
+      <input
+        type="text"
+        id="task-title"
+        formControlName="testTitle"
+        placeholder="Python Advanced Exam"
+        [ngClass]="{'error': formSubmitted && multipleQuestionsTestForm.get('testTitle')?.invalid}"
+      />
+    </div>
+    <!-- Error message Test Title -->
+    <p *ngIf="multipleQuestionsTestForm.get('testTitle')?.touched && multipleQuestionsTestForm.get('testTitle')?.errors?.['minlength']" class="error-message">
+      Title must be at least 3 chars!
+    </p>
+
+    <div class="wrapper">
+      <div>
+        <!-- Course -->
+        <label for="course">Course:</label>
+        <select name="course" formControlName="course" id="course-select" (change)="onCourseSelect()" 
+        [ngClass]="{'error': formSubmitted && multipleQuestionsTestForm.get('course')?.invalid}">
+          <option value="Select a Course" disabled selected>Select a Course</option>
+          <option *ngFor="let course of courses" [value]="course">
+            {{ course }}
+          </option>
+        </select>
+      </div>
+
+      <div>
+        <!-- Topic -->
+        <label for="topic">Topic:</label>
+        <select name="topic" formControlName="topic" id="course-select"
+        [ngClass]="{'error': formSubmitted && multipleQuestionsTestForm.get('topic')?.invalid}">
+          <option value="Select a Topic" disabled selected>Select a Topic</option>
+          <option *ngFor="let topic of topics" [value]="topic">{{topic}}</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <div formArrayName="testQuestions">
+    <main
+      *ngFor="let question of testQuestions.controls; let i = index"
+      [formGroupName]="i"
+    >
+      <section
+        [ngClass]="{
+          'even-question': i % 2 === 0,
+          'odd-question': i % 2 !== 0
+        }"
+      >
+        <i
+          id="remove-question"
+          (click)="removeQuestion(i)"
+          class="fa-regular fa-circle-xmark"
+        ></i>
+
+        <!-- Question Title -->
+        <input
+          id="question-title-input"
+          formControlName="title"
+          type="text"
+          placeholder="What is the difference between list and tuple?"
+          [ngClass]="{'error': formSubmitted && question.get('title')?.invalid }"
+        />
+        <!-- Error message Title -->
+        <p *ngIf="question.get('title')?.touched && question.get('title')?.errors?.['minlength']" class="error-message">
+          Title must be at least 5 chars!
+        </p>
+
+        <div>
+          <!-- Option A -->
+          <input
+            class="question-options-inputs"
+            formControlName="optionA"
+            type="text"
+            placeholder="A"
+            [ngClass]="{'error': formSubmitted && question.get('optionA')?.invalid }"
+          />
+         <!-- Option B -->
+          <input
+            class="question-options-inputs"
+            formControlName="optionB"
+            type="text"
+            placeholder="B"
+            [ngClass]="{'error': formSubmitted && question.get('optionB')?.invalid }"
+          />
+        </div>
+         <!--Error message Option A  -->
+        <p *ngIf="question.get('optionA')?.touched && question.get('optionA')?.errors?.['minlength']" class="error-message">
+          Option A must be at least 1 char!
+        </p>
+         <!--Error message Option B  -->
+         <p *ngIf="question.get('optionB')?.touched && question.get('optionB')?.errors?.['minlength']" class="error-message">
+          Option B must be at least 1 char!
+        </p>
+
+        <div>
+          <!-- Option C -->
+          <input
+            class="question-options-inputs"
+            formControlName="optionC"
+            type="text"
+            placeholder="C"
+            [ngClass]="{'error': formSubmitted && question.get('optionC')?.invalid }"
+          />
+          <!-- Option D -->
+          <input
+            class="question-options-inputs"
+            formControlName="optionD"
+            type="text"
+            placeholder="D"
+            [ngClass]="{'error': formSubmitted && question.get('optionD')?.invalid }"
+          />
+        </div>
+        <!--Error message Option C  -->
+        <p *ngIf="question.get('optionC')?.touched && question.get('optionC')?.errors?.['minlength']" class="error-message">
+          Option C must be at least 1 char!
+        </p>  
+        <!--Error message Option A  -->
+        <p *ngIf="question.get('optionD')?.touched && question.get('optionD')?.errors?.['minlength']" class="error-message">
+          Option D must be at least 1 char!
+        </p>
+
+        <!-- Correct Answer -->
+        <input
+          id="question-correct-answer"
+          formControlName="correctAnswer"
+          type="number"
+          placeholder="Correct Answer"
+          [ngClass]="{'error': formSubmitted && question.get('correctAnswer')?.invalid }"
+        />
+        <!-- Error message Correct Answer -->
+        <p *ngIf="question.get('correctAnswer')?.touched && question.get('correctAnswer')?.errors?.['min']" class="error-message">
+          Correct Answer must be at least 1!
+        </p>
+        <p *ngIf="question.get('correctAnswer')?.touched && question.get('correctAnswer')?.errors?.['max']" class="error-message">
+          Correct Answer must be lower than 5!
+        </p>
+      </section>
+    </main>
+  </div>
+
+  <section (click)="addQuestion()" id="add-new-question">
+    <p id="total-questions">Total Questions: {{testQuestions.value.length}}</p>
+    <h1>Add a Question</h1>
+  </section>
+
+  <div class="button-wrapper">
+    <button type="submit" id="create-multipleChoice-button">Create Test</button>
+  </div>
+</form>

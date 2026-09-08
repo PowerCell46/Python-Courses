@@ -1,0 +1,119 @@
+<main>
+  <section id="right-side">
+    <h1>Edit Profile</h1>
+    <form [formGroup]="editProfileForm" (ngSubmit)="onEditProfileSubmit()">
+      <!-- Profile Image -->
+      <div class="image-upload-div">
+      <input
+          name="profilePicture"
+          type="file"
+          class="file-upload"
+          accept="image/jpeg, image/png, image/webp"
+          required=""
+          [ngClass]="{'error': formSubmitted && editProfileForm.get('profilePicture')?.invalid}"
+      />
+    </div>
+    <!-- Username = not changable -->
+      <input
+        type="text"
+        name="username"
+        placeholder="Username"
+        value="{{ userDetails.username }}"
+        disabled
+      />
+      <div id="edit-names-div">
+        <!-- First Name -->
+        <input
+          type="text"
+          name="first-name"
+          placeholder="First Name"
+          formControlName="firstName"
+          value="{{ userDetails.firstName }}"
+          [ngClass]="{'error': formSubmitted && editProfileForm.get('firstName')?.invalid}"
+        />
+        <!-- Last Name -->
+        <input
+          type="text"
+          name="last-name"
+          formControlName="lastName"
+          placeholder="Last Name"
+          value="{{ userDetails.lastName }}"
+          [ngClass]="{'error': formSubmitted && editProfileForm.get('lastName')?.invalid}"
+        />
+      </div>
+      <!-- Error message First Name -->
+      <p
+        *ngIf="editProfileForm.get('firstName')?.touched && editProfileForm.get('firstName')?.errors?.['minlength']"
+        class="error-message"
+      >
+        First name must be at least 3 chars!
+      </p>
+      <!-- Error message Last Name -->
+      <p
+        *ngIf="editProfileForm.get('lastName')?.touched && editProfileForm.get('lastName')?.errors?.['minlength']"
+        class="error-message"
+      >
+        Last name must be at least 5 chars!
+      </p>
+      <!-- Gender -->
+      <div id="gender-wrapper">
+        <label for="gender" id="choose-gender">Gender:</label>
+        <select name="gender" formControlName="gender" id="gender-select"
+        [ngClass]="{'error': formSubmitted && editProfileForm.get('gender')?.invalid}">
+          <option value="" disabled selected>Unknown</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
+      <!-- Email = Not changable -->
+      <input
+        type="text"
+        name="email"
+        placeholder="Email"
+        value="{{ userDetails.email }}"
+        disabled
+      />
+      <!-- Phone Number -->
+      <input
+        type="text"
+        name="telephone"
+        formControlName="telephone"
+        placeholder="Telephone"
+        value="{{ userDetails.phone_number }}"
+        [ngClass]="{'error': formSubmitted && editProfileForm.get('telephone')?.invalid}"
+      />
+      <!-- Error message Phone number -->
+      <p
+        *ngIf="editProfileForm.get('telephone')?.touched && editProfileForm.get('telephone')?.errors?.['minlength']"
+        class="error-message">
+        Telephone Must be exactly 10 chars!
+      </p>
+      <!-- Error message Phone number -->
+      <p
+      *ngIf="editProfileForm.get('telephone')?.touched && editProfileForm.get('telephone')?.errors?.['maxlength']"
+      class="error-message">
+      Telephone Must be exactly 10 chars!
+      <!-- Nationality -->
+    </p>
+      <input
+        type="text"
+        name="nationality"
+        formControlName="nationality"
+        placeholder="Nationality"
+        value="{{ userDetails.nationality }}"
+        [ngClass]="{'error': formSubmitted && editProfileForm.get('nationality')?.invalid}"
+      />
+      <!-- Error message nationality -->
+    <p
+      *ngIf="editProfileForm.get('nationality')?.touched && editProfileForm.get('nationality')?.errors?.['minlength']"
+      class="error-message">
+      Nationality Must be at least 2 chars!
+    </p>
+
+      <button type="submit" id="edit-submit-button">Save Changes</button>
+    </form>
+    <h5>
+      Everything's OK? Return to <a routerLink="/myProfile">My Profile</a>
+    </h5>
+  </section>
+</main>

@@ -1,0 +1,95 @@
+.integration {
+    margin: 0 auto;
+    padding: 2.5rem;
+    width: 82.5%;
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items:center;
+    justify-content: space-around;
+    background-color: rgba(0, 0, 0, 0.4);
+    margin-bottom: 5vh;
+    transition: 600ms ease-in-out;
+}
+
+
+.integration:nth-child(2n) {
+    background-color: rgba(0, 0, 0, 0.5);
+} 
+
+
+.integration:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+    transform: translateY(-1rem) translateX(-0.3rem);
+}
+
+
+.integration img {
+    border-radius: 0.7rem;
+    box-shadow: var(--box-shadow);
+    transition: 600ms ease-in-out;
+}
+
+
+.integration img:hover {
+    filter: blur(3px);
+}
+
+
+#GGF-img {
+    height: 47.5vh;
+    margin-right: 2vw;
+}
+
+
+#SPGE-img {
+    height: 45vh;
+}
+
+
+.integration-content-wrapper {
+    /* background-color: aliceblue; */
+    width: 50vw;
+}
+
+
+.integration .integration-content-wrapper h5 {
+    text-align: center;
+    color: whitesmoke;
+    margin-bottom: 5vh;
+    font-size: 3rem;
+    letter-spacing: 0.2rem;
+    font-family: 'Permanent Marker';
+    text-shadow: var(--text-shadow);
+}
+
+
+.integration p {
+    width: 90%;
+    font-size: 1.4rem;
+}
+
+
+b {
+    font-weight: 600;
+    color: whitesmoke;
+    text-decoration: underline;
+}
+
+
+@media screen and (min-width: 2500px) {
+    .integration .integration-content-wrapper h5  {
+        font-size: 3.25rem;
+    }
+
+
+    .integration p {
+        font-size: 1.6rem;
+    }
+}
+
+
+@media (max-height: 1000px) and (max-width: 1900px) {
+    .integration p {
+        font-size: 1.25rem;
+    }
+}

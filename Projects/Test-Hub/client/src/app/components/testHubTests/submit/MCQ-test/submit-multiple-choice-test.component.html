@@ -1,0 +1,58 @@
+<main *ngIf="exam">
+  <h1>{{ exam.title }}</h1>
+  <div class="tasks-container">
+    <!-- Topic Tasks - MCQ and Python Tasks -->
+    <ng-container *ngFor="let task of exam.topicTasks">
+      <div
+        *ngIf="task.type === 'multiple-choice'"
+        routerLink="/contests/{{ courseName }}/{{
+          topicName
+        }}/multiple-choice/{{ task.encodedName }}/"
+        class="task"
+      >
+      <i class="fa-regular fa-rectangle-list"></i> {{ task.name }}
+      </div>
+      <div
+        *ngIf="task.type === 'python'"
+        routerLink="/contests/{{ courseName }}/{{ topicName }}/python/{{
+          task.encodedName
+        }}/"
+        class="task"
+      >
+      <i class="fa-solid fa-code"></i> {{ task.name }}
+      </div>
+    </ng-container>
+  </div>
+  <form [formGroup]="testForm" (ngSubmit)="onMultipleQuestionsTestSubmit()">
+    <div formArrayName="questions">
+      <!-- Question Section -->
+      <section *ngFor="let questionControl of questionsFormArray.controls; let i = index" [formGroupName]="i" class="options" 
+      [ngClass]="{'unfilled-question': formSubmitted && !questionControl.get('selectedValue')?.value}">
+        <!-- Title -->
+      <h5>{{ exam.questions[i].question_title }}</h5>
+        <div class="container">
+
+          <div class="inner-container">
+            <input type="radio" formControlName="selectedValue" value="1" [id]="'question' + i + '_option1'" [attr.name]="'question' + i" class="options-input">
+            <label [for]="'question' + i + '_option1'">{{ exam.questions[i].first_option }}</label>
+
+            <input type="radio" formControlName="selectedValue" value="2" [id]="'question' + i + '_option2'" [attr.name]="'question' + i" class="options-input">
+            <label [for]="'question' + i + '_option2'">{{ exam.questions[i].second_option }}</label>
+          </div>
+          <input type="hidden" formControlName="questionId">
+          <div class="inner-container">
+            <input type="radio" formControlName="selectedValue" value="3" [id]="'question' + i + '_option3'" [attr.name]="'question' + i" class="options-input">
+            <label [for]="'question' + i + '_option3'">{{ exam.questions[i].third_option }}</label>
+
+            <input type="radio" formControlName="selectedValue" value="4" [id]="'question' + i + '_option4'" [attr.name]="'question' + i" class="options-input">
+            <label [for]="'question' + i + '_option4'">{{ exam.questions[i].fourth_option }}</label>
+          </div>
+
+        </div>
+      </section>
+    </div>
+    <div class="button-wrapper">
+      <button type="submit">Finish Test</button>
+    </div>
+  </form>
+</main>

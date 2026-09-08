@@ -1,0 +1,104 @@
+<main *ngIf="pythonTest">
+  <!-- Topic -->
+  <h1>{{ pythonTest.topicName }}</h1>
+
+  <div class="tasks-container">
+    <!-- Topic Tasks - MCQ and Python Tasks -->
+    <ng-container *ngFor="let task of pythonTest.topicTasks">
+      <div
+        *ngIf="task.type === 'multiple-choice'"
+        routerLink="/contests/{{ courseName }}/{{
+          topicName
+        }}/multiple-choice/{{ task.encodedName }}/"
+        class="task"
+      >
+      <i class="fa-regular fa-rectangle-list"></i> {{ task.name }}
+      </div>
+      <div
+        *ngIf="task.type === 'python'"
+        routerLink="/contests/{{ courseName }}/{{ topicName }}/python/{{
+          task.encodedName
+        }}/"
+        class="task"
+      >
+      <i class="fa-solid fa-code"></i> {{ task.name }}
+      </div>
+    </ng-container>
+  </div>
+  <form
+    [formGroup]="pythonTestSubmitForm"
+    (ngSubmit)="onPythonTaskSubmit()"
+    class="inner-container"
+  >
+    <div class="inner-container-wrapper">
+      <!-- Task Title -->
+      <h5>{{ pythonTest.title }}</h5>
+      <!-- Task Description -->
+      <a target="_blank" href="{{ pythonTest.description }}">
+        <i class="fa-solid fa-file"></i>
+      </a>
+    </div>
+    <div id="unit-tests-wrapper">
+      <h5 id="unit-tests-title">Paste Code Here:</h5>
+      <!-- Task Code -->
+      <textarea
+        formControlName="code"
+        (input)="updateCode($any($event.target).value)"
+        placeholder="Enter Python code here..."
+        [ngClass]="{'error': formSubmitted && pythonTestSubmitForm.get('code')?.invalid}"
+      ></textarea>
+    </div>
+    <pre><code [innerHTML]="highlightedCode" class="language-python"></code></pre>
+    <div class="current-task"></div>
+    <p
+    *ngIf="pythonTestSubmitForm.get('code')?.touched && pythonTestSubmitForm.get('code')?.errors?.['minlength']"
+    class="error-message"
+    id="unit-tests-err"
+  >
+    Python Code must be at least 3 symbols!
+  </p>
+    <button type="submit">Submit</button>
+  </form>
+</main>
+
+<table *ngIf="pythonTest">
+  <tr>
+    <th>Result</th>
+    <th>Submission Date<i (click)="reloadPage()" class="fa-solid fa-rotate-right"></i></th>
+  </tr>
+  <tr *ngFor="let submission of pythonTest.submissions">
+    <td>
+      <i
+        class="fa-solid fa-check"
+        *ngFor="let n of getArray(submission.num_correct_tests)"
+      ></i>
+      <!-- Correct tests -->
+
+      <i
+        class="fa-regular fa-circle-xmark"
+        *ngFor="let n of getArray(submission.num_error_tests)"
+      ></i>
+      <!-- Error tests -->
+
+      <i
+        class="fa-solid fa-xmark"
+        *ngFor="
+          let n of getArray(
+            submission.num_total_tests -
+              (submission.num_correct_tests + submission.num_error_tests)
+          )
+        "
+      ></i>
+      <!-- Incorrect tests -->
+
+      {{ submission.num_correct_tests }}/{{ submission.num_total_tests }}
+    </td>
+    <td>{{ submission.submission_time | date : "HH:mm:ss dd/MM/yyyy" }}</td>
+  </tr>
+</table>
+
+
+<!-- 
+def is_even(number):
+    return number % 2 == 0
+  -->

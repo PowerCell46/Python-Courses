@@ -1,0 +1,123 @@
+@import url('../../../../assets/styles/aside-courses.css');
+@import url('../../../../assets/styles/integration-section.css');
+
+
+main {
+    margin-top: 2vh;
+    display: flex;
+    flex-direction: row;
+    padding: 0 2.5vw 0 2.5vw;
+    margin-bottom: 5vh;
+}
+
+
+main section {
+    width: 65vw;
+    background-image: url('../../../../assets/images/1000_F_218537567_Z4W3By4FP4VTi8ncqA0Uv1RiGdcuKWnk.jpg');
+    background-size: cover;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    transition: 600ms ease-in-out;
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-height: 66vh;
+    min-height: 66vh;
+    animation-name: bgPositionAnim;
+    animation-duration: 10s;
+    animation-timing-function: ease-in-out;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+}
+
+
+main section:hover {
+    filter: blur(3px);
+}
+
+
+main section h1 {
+    font-size: 12.5rem;
+    color: whitesmoke;
+    font-family: "Permanent Marker", cursive;
+    letter-spacing: 0.1rem;
+    text-shadow: var(--text-shadow);
+}
+
+
+#welcoming-message {
+    margin: 0 auto;
+    margin-top: 3vh;
+    width: 80%;
+    font-size: 2rem;
+    color: whitesmoke;
+    text-shadow: var(--text-shadow);
+    text-align: center;
+    font-family: 'Anta';
+}
+
+
+h2 {
+    text-align: center;
+    color: whitesmoke;
+    margin-top: 5vh;
+    font-size: 6rem;
+    font-family: 'Permanent Marker';
+    text-shadow: var(--text-shadow);
+}
+
+
+p {
+    letter-spacing: 0.1rem;
+    width: 80%;
+    margin: 3vh auto;
+    font-size: 1.6rem;
+    font-family: 'Anta';
+    line-height: 1.5;
+    color: whitesmoke;
+    text-shadow: var(--text-shadow);
+}
+
+
+#greeting-message {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 0.5rem;
+    width: 62.5%;
+    letter-spacing: 0.1rem;
+    font-family: 'Anta';
+    color: whitesmoke;
+    text-shadow: var(--text-shadow);
+    font-family: 'Poppins';
+    font-size: 3rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+
+#greeting-message span {
+    background-image: -webkit-linear-gradient(135deg, #AAFF00, #EADDCA);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: none;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+
+#greeting-message i {
+    color: #FFD43B;
+    font-size: 2.25rem;
+}
+
+
+@keyframes bgPositionAnim {
+    0% {
+        background-position: center calc(100%);
+    }
+    100% {
+        background-position: center;
+    }
+}

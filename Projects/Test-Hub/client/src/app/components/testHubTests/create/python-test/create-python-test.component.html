@@ -1,0 +1,112 @@
+<form [formGroup]="pythonTestForm" (ngSubmit)="onPythonTestSubmit()">
+  <section id="choose-course-choose-topic">
+    <div class="title-wrapper">
+      <label id="task-title-label" for="task-title">Exam Title:</label>
+      <!-- Test Title -->
+      <input
+        type="text"
+        id="task-title"
+        formControlName="title"
+        placeholder="Sum even numbers"
+        [ngClass]="{'error': formSubmitted && pythonTestForm.get('title')?.invalid}"
+      />
+    </div>
+    <!-- Error message Title -->
+    <p *ngIf="pythonTestForm.get('title')?.touched && pythonTestForm.get('title')?.errors?.['minlength']" class="error-message">
+      Title must be at least 3 chars!
+    </p>
+    <div class="wrapper">
+      <div>
+        <!-- Course -->
+        <label for="course">Course:</label>
+        <select
+          name="course"
+          formControlName="course"
+          id="course-select"
+          [ngClass]="{'error': formSubmitted && pythonTestForm.get('course')?.invalid}"
+          (change)="onCourseSelect()">
+          <option value="Select a Course" disabled selected>
+            Select a Course
+          </option>
+          <option *ngFor="let course of courses" [value]="course">
+            {{ course }}
+          </option>
+        </select>
+      </div>
+
+      <div>
+        <!-- Topic -->
+        <label for="topic">Topic:</label>
+        <select name="topic" formControlName="topic" id="course-select"
+        [ngClass]="{'error': formSubmitted && pythonTestForm.get('topic')?.invalid}">
+          <option value="Select a Topic" disabled selected>
+            Select a Topic
+          </option>
+          <option *ngFor="let topic of topics" [value]="topic">
+            {{ topic }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <div class="file-upload-div">
+    <!-- Test Description -->
+    <label for="task-description-file" class="file-upload-label"
+      >File Description:</label
+    >
+    <input
+      name="task-description-file"
+      formControlName="description"
+      type="file"
+      class="file-upload"
+      accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      required=""
+      [ngClass]="{'error': formSubmitted && pythonTestForm.get('description')?.invalid}"
+    />
+  </div>
+
+  <div id="unit-tests-wrapper">
+    <!-- Unit Tests -->
+    <h5 id="unit-tests-title">Unit Tests:</h5>
+    <textarea
+      formControlName="unitTests"
+      (input)="updateCode($any($event.target).value)"
+      placeholder="Enter Python code here..."
+      [ngClass]="{'error': formSubmitted && pythonTestForm.get('unitTests')?.invalid}"
+    ></textarea>
+  </div>
+  <pre><code [innerHTML]="highlightedCode" class="language-python"></code></pre>
+  <!-- Error message Unit Tests -->
+  <p
+    *ngIf="pythonTestForm.get('unitTests')?.touched && pythonTestForm.get('unitTests')?.errors?.['minlength']"
+    class="error-message"
+    id="unit-tests-err"
+  >
+    Unit Tests must be at least 10 chars!
+  </p>
+
+  <button type="submit">Create Task</button>
+</form>
+
+
+<!-- 
+import unittest
+
+class TestIsEven(unittest.TestCase):
+
+    def test_even_number(self):
+        self.assertTrue(is_even(4), "4 is an even number")
+
+    def test_odd_number(self):
+        self.assertFalse(is_even(5), "5 is an odd number")
+
+    def test_zero(self):
+        self.assertTrue(is_even(0), "0 is an even number")
+
+    def test_negative_even_number(self):
+        self.assertTrue(is_even(-2), "-2 is an even number")
+
+    def test_negative_odd_number(self):
+        self.assertFalse(is_even(-3), "-3 is an odd number")
+ -->

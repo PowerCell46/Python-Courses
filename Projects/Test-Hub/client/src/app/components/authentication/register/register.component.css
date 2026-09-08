@@ -1,0 +1,27 @@
+@import url('../../../../assets/styles/auth.css');
+
+
+main form {
+    width: 52.5%;
+    gap: 1.2vh;
+}
+
+
+#left-side {
+    background: url('../../../../assets/images/97133ec9-8094-4eb6-945c-cee5c52fa329.webp') center center / cover no-repeat;
+}
+
+
+.error-message {
+    margin-top: 0;
+}
+
+
+#hide-show-password {
+    z-index: 2;
+    margin-top: -4.6vh;
+    margin-bottom: 4vh;
+    margin-left: 18.4vw;
+    font-size: 1.2rem;
+    cursor: pointer;
+}

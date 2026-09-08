@@ -1,0 +1,50 @@
+<main>
+  <section id="right-side">
+    <h1>Welcome Back!</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()" method="POST">
+      <!-- Username -->
+      <input type="text" name="username" formControlName="username" placeholder="Username"
+      [ngClass]="{'error': formSubmitted && loginForm.get('username')?.invalid}"/>
+      <!-- Error messages Username -->
+      <p
+      *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.errors?.['minlength']"
+      class="error-message">
+      Username must be at least 5 chars!
+    </p>
+    <p
+        *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.errors?.['passwordStrength']"
+        class="error-message"
+      >
+      Username must contain at least one uppercase letter, one lowercase letter, and a number!
+    </p>
+
+    <!-- Password -->
+    <i id="hide-show-password" class="fa-solid fa-eye"
+      (mousedown)="showPassword(true)"
+      (mouseup)="showPassword(false)"
+      (mouseleave)="showPassword(false)">
+    </i>
+    <input [type]="passwordFieldType" name="password" formControlName="password" placeholder="Password"
+        [ngClass]="{'error': formSubmitted && loginForm.get('password')?.invalid}" />
+    
+      <!-- Erros messages Password -->
+      <p
+        *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['minlength']"
+        class="error-message"
+      >
+        Password must be at least 6 chars!
+      </p>
+      <p
+        *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['passwordStrength']"
+        class="error-message"
+      >
+      Password must contain at least one uppercase letter, one lowercase letter, and a number!
+      </p>
+
+      <button type="submit" id="register-submit-button">Login</button>
+    </form>
+    <h5>Don't have an account? <a routerLink="/register">Register here</a></h5>
+  </section>
+
+  <section id="left-side"></section>
+</main>

@@ -1,0 +1,12 @@
+<main *ngIf="submission">
+    <section class="result-section">
+        <h5>Your Result: {{submission.correct_answers}}/{{submission.total_questions}}</h5>
+    </section>
+    <h4>Questions:</h4>
+    <section class="questions-section">
+        <button *ngFor="let question of submission.answers" routerLink="/submissions/multipleChoiceTest/{{submissionId}}/{{question.questionId}}"
+                [ngClass]="{'correct-answer-button': question.valid, 'wrong-answer-button': !question.valid}">
+          {{question.questionNumber}}
+        </button>
+      </section>
+</main>
